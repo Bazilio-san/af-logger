@@ -1,6 +1,6 @@
 {
     "name": "af-logger",
-    "version": "0.0.4",
+    "version": "0.0.2",
     "description": "A highly specialized function library",
     "main": "index.js",
     "scripts": {
