@@ -1,0 +1,32 @@
+{
+    "name": "af-logger",
+    "version": "0.0.4",
+    "description": "A highly specialized function library",
+    "main": "index.js",
+    "scripts": {
+    },
+    "author": "Viacheslav Makarov <npmjs@bazilio.ru>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Bazilio-san/af-logger.git"
+    },
+    "license": "ISC",
+    "files": [
+        "index.js"
+    ],
+    "dependencies": {
+        "app-root-path": "^3.0.0",
+        "moment-timezone": "^0.5.33",
+        "winston": "^3.3.3",
+        "winston-daily-rotate-file": "^4.5.5"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.14.3",
+        "@babel/register": "^7.13.16",
+        "eslint": "^7.27.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-friendly-formatter": "^4.0.1",
+        "eslint-loader": "^4.0.2",
+        "eslint-plugin-import": "^2.23.3"
+    }
+}
