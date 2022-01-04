@@ -27,7 +27,6 @@ const getSLogger = (options: ILoggerSettings, contName: string): IFileLogger => 
   const fileRe = new RegExp(`^${errorFilePrefix}${filePrefix}-([\\d-]{10})\\.log$`);
 
   const transport = new (winston.transports.DailyRotateFile)({
-    name: `${contName}-file`,
     level: contName,
     json: false,
     datePattern: 'YYYY-MM-DD',
