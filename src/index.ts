@@ -9,6 +9,8 @@ import { FileLogger } from './file-logger';
 import { ILoggerSettings, ImErrOptions, TErr } from './types';
 import { isObject, reduceAnyError } from './utils';
 
+export { ILoggerSettings } from './types';
+
 const asyncLocalStorage: AsyncLocalStorage<{ requestId: string }> = new AsyncLocalStorage();
 
 class LoggerEx extends Logger {
