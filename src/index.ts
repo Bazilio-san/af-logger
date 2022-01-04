@@ -13,7 +13,7 @@ export { ILoggerSettings } from './types';
 
 const asyncLocalStorage: AsyncLocalStorage<{ requestId: string }> = new AsyncLocalStorage();
 
-class LoggerEx extends Logger {
+export class LoggerEx extends Logger {
   public logLevels: TLogLevelName[];
 
   public _: Logger;
