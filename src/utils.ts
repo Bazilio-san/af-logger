@@ -57,7 +57,6 @@ export const removeEmptyLogs = (dir: string, fileRe: RegExp, minSize = 0): void 
       console.log(err.message);
     }
     console.log(`Removed empty log file "${path}"`);
-    fs.unlinkSync(path);
   });
 };
 
