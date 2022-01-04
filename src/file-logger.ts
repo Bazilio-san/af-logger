@@ -9,7 +9,7 @@ import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import { ILogObject } from 'tslog/src/interfaces';
 import { reduceAnyError, removeEmptyLogs } from './utils';
-import { IFileLogger, ILoggerSettings } from './types';
+import { IFileLogger, ILoggerSettings } from './interfaces';
 
 const DEFAULT_LOG_DIR = fsPath.resolve(appRoot.path, '../logs');
 

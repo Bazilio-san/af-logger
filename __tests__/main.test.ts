@@ -1,6 +1,6 @@
 import * as config from 'config';
 import * as fse from 'fs-extra';
-import { ILoggerSettings } from '../src/types';
+import { ILoggerSettings } from '../src/interfaces';
 import em from './ee';
 import { getAFLogger } from '../src';
 

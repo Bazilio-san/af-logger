@@ -6,10 +6,8 @@ import { AsyncLocalStorage } from 'async_hooks';
 import { ISettings, Logger } from 'tslog';
 import { ISettingsParam, TLogLevelName } from 'tslog/src/interfaces';
 import { FileLogger } from './file-logger';
-import { ILoggerSettings, ImErrOptions, TErr } from './types';
+import { ILoggerSettings, ImErrOptions, TErr } from './interfaces';
 import { isObject, reduceAnyError } from './utils';
-
-export { ILoggerSettings } from './types';
 
 const asyncLocalStorage: AsyncLocalStorage<{ requestId: string }> = new AsyncLocalStorage();
 
