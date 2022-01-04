@@ -30,8 +30,6 @@ const getSLogger = (options: ILoggerSettings, contName: string): IFileLogger => 
     level: contName,
     json: false,
     datePattern: 'YYYY-MM-DD',
-    prepend: true,
-    // @ts-ignore
     filename: `${dir}/${errorFilePrefix}${filePrefix}-%DATE%.log`,
     maxSize: '20m',
     // maxFiles: '14d'
