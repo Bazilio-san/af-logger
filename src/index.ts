@@ -98,10 +98,12 @@ export const getAFLogger = (loggerSettings: ILoggerSettings) => {
   ['info', 'error'].forEach((fileLoggerType) => {
     const transportLogger: any = {};
     const arr = Object.entries(fileLoggerMap || {}).filter(([, t]) => t === fileLoggerType).map(([l]) => l);
-    logger.logLevels.forEach((levelName) => {
-      transportLogger[levelName] = arr.includes(levelName) ? fileLogger[fileLoggerType].main : () => undefined;
-    });
-    logger.attachTransport(transportLogger, fileLoggerType === 'error' ? fileLoggerType : minLevel);
+    if (arr.length) {
+      logger.logLevels.forEach((levelName) => {
+        transportLogger[levelName] = arr.includes(levelName) ? fileLogger[fileLoggerType].main : () => undefined;
+      });
+      logger.attachTransport(transportLogger, fileLoggerType === 'error' ? fileLoggerType : minLevel);
+    }
   });
 
   return {
