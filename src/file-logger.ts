@@ -51,6 +51,7 @@ const getSLogger = (options: ILoggerSettings, contName: string): IFileLogger => 
     ),
   }) as IFileLogger;
   const p = logger._readableState.pipes;
+  logger.transport = transport;
   logger.minLogSize = minLogSize;
   logger.dir = dir;
   logger.removeEmptyLogs = removeEmptyLogs.bind(null, dir, fileRe, minLogSize);
