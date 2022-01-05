@@ -11,6 +11,8 @@ export interface IFileInfo {
   created: number
 }
 
+export const normalizePath = (path: string) => fsPath.normalize(fsPath.resolve(path)).replace(/\\/g, '/');
+
 export const getFiles = (dir: string): IFileInfo[] => {
   dir = fse.realpathSync(dir);
   if (!fs.existsSync(dir) || !fse.statSync(dir).isDirectory()) {
@@ -18,7 +20,7 @@ export const getFiles = (dir: string): IFileInfo[] => {
   }
   const files: IFileInfo[] = [];
   fse.readdirSync(dir).forEach((name) => {
-    const path = fsPath.normalize(`${dir}/${name}`).replace(/\\/g, '/');
+    const path = normalizePath(`${dir}/${name}`);
     const syncObj = fs.statSync(path);
     if (!syncObj.isDirectory()) {
       files.push({ name, path, size: syncObj.size, created: syncObj.ctimeMs });

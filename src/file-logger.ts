@@ -8,16 +8,14 @@ import * as fsPath from 'path';
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import { ILogObject } from 'tslog/src/interfaces';
-import { reduceAnyError, removeEmptyLogs } from './utils';
+import { normalizePath, reduceAnyError, removeEmptyLogs } from './utils';
 import { IFileLogger, ILoggerSettings } from './interfaces';
 
 const DEFAULT_LOG_DIR = fsPath.resolve(appRoot.path, '../logs');
 
 const getSLogger = (options: ILoggerSettings, contName: string): IFileLogger => {
-  const { filePrefix } = options;
+  const { filePrefix, logDir } = options;
   const isError = contName === 'error';
-
-  const logDir = options.logDir || DEFAULT_LOG_DIR;
   const minLogSize = (isError ? options.minErrorLogSize : 0) || options.minLogSize || 0;
   const dir = logDir + (isError ? '/error' : '');
   const errorFilePrefix = isError ? 'error-' : '';
@@ -84,7 +82,12 @@ export class FileLogger {
 
   loggerFinish: (exitCode?: number) => void;
 
+  logDir: string;
+
   constructor(options: ILoggerSettings) {
+    options.logDir = normalizePath(options.logDir || DEFAULT_LOG_DIR);
+    this.logDir = options.logDir;
+
     this.info = getSLogger(options, 'info');
     this.error = getSLogger(options, 'error');
 

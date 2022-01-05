@@ -6,7 +6,7 @@
     <working-dir value="$PROJECT_DIR$" />
     <envs />
     <scope-kind value="SUITE" />
-    <test-file value="$PROJECT_DIR$/__tests__/main.test.ts" />
+    <test-file value="$PROJECT_DIR$/__tests__/logger.test.ts" />
     <test-names>
       <test-name value="Test logger" />
     </test-names>

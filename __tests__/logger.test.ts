@@ -1,8 +1,10 @@
 import * as config from 'config';
 import * as fse from 'fs-extra';
+import * as fsPath from 'path';
 import { ILoggerSettings } from '../src/interfaces';
 import em from './ee';
 import { getAFLogger } from '../src';
+import { normalizePath } from '../src/utils';
 
 const { level: minLevel, prefix } = config.get('logger');
 const logDir = './_log';
@@ -29,6 +31,8 @@ const loggerSettings: ILoggerSettings = {
 
 const { logger /* fileLogger, exitOnError */ } = getAFLogger(loggerSettings);
 
+const rootDir = process.cwd();
+
 const TIMEOUT_MILLIS = 100_000;
 
 describe('Test logger', () => {
@@ -48,4 +52,19 @@ describe('Test logger', () => {
     logger._.error('write error_');
     logger._.fatal('write fatal_');
   }, TIMEOUT_MILLIS);
+
+  [
+    [undefined, fsPath.resolve(rootDir, '../logs')],
+    ['', fsPath.resolve(rootDir, '../logs')],
+    [fsPath.resolve(rootDir, './logs/foo'), fsPath.resolve(rootDir, './logs/foo')],
+    ['./logs/foo', fsPath.resolve(rootDir, './logs/foo')],
+    ['.', rootDir],
+  ].forEach(([logDir_, exp = '']) => {
+    const expected = normalizePath(exp);
+    test(`logDir ${logDir_} --> ${expected}`, async () => {
+      loggerSettings.logDir = logDir_;
+      const res = getAFLogger(loggerSettings);
+      expect(res.fileLogger.logDir).toEqual(expected);
+    }, TIMEOUT_MILLIS);
+  });
 });
