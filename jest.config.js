@@ -17,4 +17,6 @@ module.exports = {
     '/.idea/',
   ],
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
+  globalSetup: '<rootDir>/__tests__/global-setup.ts',
+  testTimeout: 100_000,
 };

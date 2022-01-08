@@ -69,16 +69,54 @@ export const isObject = (v: any): boolean => v != null
   && !(v instanceof Set)
   && !(v instanceof Map);
 
-export const reduceError = (err: TErr) => {
+const reducePropertyValue = (v: any) => {
+  const type = typeof v;
+  const reduceString = (str: string, n = 300) => {
+    if (str) {
+      return str.length > n ? `${str.substring(0, n)} ...` : str;
+    }
+    return str;
+  };
+  if (type === 'string') {
+    return reduceString(v, 300);
+  }
+  if (['number', 'boolean'].includes(typeof v)) {
+    return v;
+  }
+  if (typeof v === 'object') {
+    let str;
+    try {
+      str = JSON.stringify(v);
+    } catch (e) {
+      //
+    }
+    if (str) {
+      if (['config', 'request', 'response'].includes(typeof v)) {
+        v = reduceString(str, 100);
+      } else {
+        v = str.length > 100 ? reduceString(str, 300) : v;
+      }
+      return v;
+    }
+  }
+  return undefined;
+};
+
+const reduceError = (err: TErr) => {
+  const namesSet = new Set(Object.getOwnPropertyNames(err));
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
+  for (const k in err) {
+    namesSet.add(k);
+  }
   // eslint-disable-next-line no-new-object
   const o = new Object(null);
-  Object.entries(err).forEach(([k, v]) => {
-    if (['string', 'number', 'boolean'].includes(typeof v)) {
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
+  for (const k of namesSet) {
+    const v = ['stack', 'message', 'code', 'name'].includes(k) ? err[k] : reducePropertyValue(err[k]);
+    if (v != null && v !== '') {
       o[k] = v;
-    } else if (typeof v === 'object' && ['config', 'request', 'response'].includes(typeof v)) {
-      o[k] = JSON.stringify(v);
     }
-  });
+  }
   return o;
 };
 
@@ -93,7 +131,7 @@ export const reduceAnyError = (err: TErr) => {
     if (err.nativeError) {
       return reduceError(err.nativeError);
     }
-    if (err instanceof Error) {
+    if (err instanceof Error || (err.stack && err.message)) {
       return reduceError(err);
     }
     return err;

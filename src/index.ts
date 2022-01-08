@@ -48,7 +48,7 @@ export class LoggerEx extends Logger {
     const print = true;
     const exposeErrorCodeFrame = true;
     const exposeStackTrace = !noStack;
-    this.prettyError(err, print, exposeErrorCodeFrame, exposeStackTrace);
+    this.prettyError(reduceAnyError(err), print, exposeErrorCodeFrame, exposeStackTrace);
     if (thr) {
       throw err;
     }

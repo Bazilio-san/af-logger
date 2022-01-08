@@ -33,10 +33,3 @@ export interface ImErrOptions {
   thr?: boolean,
   noStack?: boolean
 }
-
-// export interface TLoggerEx extends Logger {
-//   logLevels: TLogLevelName[],
-//   isLevel: (levelName: TLogLevelName) => boolean;
-//   mErr: (err: TErr, options: ImErrOptions | string) => void | never
-//   _: Logger,
-// }
