@@ -29,14 +29,14 @@ const loggerSettings: ILoggerSettings = {
   },
 };
 
-const { logger /* fileLogger, exitOnError */ } = getAFLogger(loggerSettings);
+const { logger, echo /* fileLogger, exitOnError */ } = getAFLogger(loggerSettings);
 
 const rootDir = process.cwd();
 
 const TIMEOUT_MILLIS = 100_000;
 
 describe('Test logger', () => {
-  test('1', async () => {
+  test('logger', async () => {
     logger.silly('write silly');
     logger.debug('write debug');
     logger.trace('write trace');
@@ -67,4 +67,13 @@ describe('Test logger', () => {
       expect(res.fileLogger.logDir).toEqual(expected);
     }, TIMEOUT_MILLIS);
   });
+
+  test('echo', async () => {
+    echo.silly('echo silly');
+    echo.debug('echo debug');
+    echo.trace('echo trace');
+    echo.info('echo info');
+    echo.warn('echo warn');
+    echo.error('echo error');
+  }, TIMEOUT_MILLIS);
 });

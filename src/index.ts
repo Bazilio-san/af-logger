@@ -8,6 +8,7 @@ import { ISettingsParam, TLogLevelName } from 'tslog/src/interfaces';
 import { FileLogger } from './file-logger';
 import { ILoggerSettings, ImErrOptions, TErr } from './interfaces';
 import { isObject, reduceAnyError } from './utils';
+import Echo from './echo';
 
 const asyncLocalStorage: AsyncLocalStorage<{ requestId: string }> = new AsyncLocalStorage();
 
@@ -105,10 +106,12 @@ export const getAFLogger = (loggerSettings: ILoggerSettings) => {
       logger.attachTransport(transportLogger, fileLoggerType === 'error' ? fileLoggerType : minLevel);
     }
   });
+  const echo = new Echo(logger);
 
   return {
     logger,
     fileLogger,
+    echo,
     exitOnError: (err: TErr) => {
       if (!(err instanceof Error)) {
         err = new Error(err);

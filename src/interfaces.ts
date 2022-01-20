@@ -5,6 +5,8 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 
 export type TMethod<T> = (...args: any[]) => T;
 export type TErr = Error | any;
+export type Maybe<T> = T | undefined;
+export type Nullable<T> = T | null;
 
 export interface ILoggerSettings extends ISettingsParam {
   name?: string,
@@ -32,4 +34,19 @@ export interface ImErrOptions {
   msg?: string,
   thr?: boolean,
   noStack?: boolean
+}
+
+export interface TEchoOptions {
+  colorNum?: number,
+  bgColorNum?: number,
+  bold?: boolean,
+  underscore?: boolean,
+  reverse?: boolean,
+  prefix?: string,
+  consoleFunction?: 'dir' | 'log',
+  logger?: any,
+  estimate?: any,
+  estimateReset?: boolean,
+  prettyJSON?: boolean,
+  linesBefore?: number,
 }
