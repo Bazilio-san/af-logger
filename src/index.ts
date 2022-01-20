@@ -9,6 +9,7 @@ import { FileLogger } from './file-logger';
 import { ILoggerSettings, ImErrOptions, TErr } from './interfaces';
 import { isObject, reduceAnyError } from './utils';
 import Echo from './echo';
+import * as color from './color';
 
 const asyncLocalStorage: AsyncLocalStorage<{ requestId: string }> = new AsyncLocalStorage();
 
@@ -112,6 +113,7 @@ export const getAFLogger = (loggerSettings: ILoggerSettings) => {
     logger,
     fileLogger,
     echo,
+    color,
     exitOnError: (err: TErr) => {
       if (!(err instanceof Error)) {
         err = new Error(err);

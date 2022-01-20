@@ -29,7 +29,7 @@ const loggerSettings: ILoggerSettings = {
   },
 };
 
-const { logger, echo /* fileLogger, exitOnError */ } = getAFLogger(loggerSettings);
+const { logger, echo, color /* fileLogger, exitOnError */ } = getAFLogger(loggerSettings);
 
 const rootDir = process.cwd();
 
@@ -75,5 +75,9 @@ describe('Test logger', () => {
     echo.info('echo info');
     echo.warn('echo warn');
     echo.error('echo error');
+  }, TIMEOUT_MILLIS);
+
+  test('color', async () => {
+    echo.silly(`COLOR: ${color.red}RED`);
   }, TIMEOUT_MILLIS);
 });
