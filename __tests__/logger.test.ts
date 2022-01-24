@@ -80,4 +80,8 @@ describe('Test logger', () => {
   test('color', async () => {
     echo.silly(`COLOR: ${color.red}RED`);
   }, TIMEOUT_MILLIS);
+
+  test('echo as function', async () => {
+    echo('ECHO AS FUNCTION IS OK');
+  }, TIMEOUT_MILLIS);
 });

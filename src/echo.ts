@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console,no-constructor-return */
 import { TLogLevelName } from 'tslog/src/interfaces';
 import {
   blueN, cyanN, defaultN, greenN, magenta, magentaN, redN, reset, underlineOff, yellowN,
@@ -70,7 +70,7 @@ const _c = (options: TEchoOptions = {}): string => {
   return color;
 };
 
-class Echo {
+class Echo extends Function {
   public prefix: string;
 
   private _lastLogMessage: Nullable<string>;
@@ -78,10 +78,13 @@ class Echo {
   private logger: LoggerEx;
 
   constructor(logger: LoggerEx) {
+    super();
     this.logger = logger;
     this.prefix = String(this.logger.settings.prefix?.[0] || '');
 
     this._lastLogMessage = null;
+    // @ts-ignore
+    return new Proxy(this, { apply: (target, that, args) => target.echo(...args) });
   }
 
   /**
