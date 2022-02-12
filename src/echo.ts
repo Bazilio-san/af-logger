@@ -1,7 +1,7 @@
 /* eslint-disable no-console,no-constructor-return */
 import { TLogLevelName } from 'tslog/src/interfaces';
 import {
-  blueN, cyanN, defaultN, greenN, magenta, magentaN, redN, reset, underlineOff, yellowN,
+  cyanN, defaultN, greenN, greyN, magenta, magentaN, redN, reset, underlineOff, yellowN,
 } from './color';
 import { Nullable, TEchoOptions } from './interfaces';
 import { LoggerEx } from './index';
@@ -46,8 +46,8 @@ const levelColors = {
   warn: yellowN,
   info: greenN,
   debug: cyanN,
-  trace: magentaN,
-  silly: blueN,
+  trace: greyN,
+  silly: magentaN,
 };
 
 /**
@@ -170,7 +170,7 @@ class Echo extends Function {
       linesBefore = 0,
     } = options;
 
-    options.colorNum = colorNum || levelColors[levelName] || blueN;
+    options.colorNum = colorNum || levelColors[levelName] || greyN;
     const color = _c(options);
     if (estimate) {
       title = `${estimate.getTaken(estimateReset, true)} ${title || ''}`;
