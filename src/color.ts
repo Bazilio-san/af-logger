@@ -9,6 +9,13 @@ export const italics = '\x1b[3m';
 export const italicsOff = '\x1b[23m';
 export const def = '\x1b[39m';
 
+export const dim = '\x1b[2m';
+export const underscore = '\x1b[4m';
+export const blink = '\x1b[5m';
+export const reverse = '\x1b[7m';
+export const hidden = '\x1b[8m';
+export const underlineOff = '\x1b[24m';
+
 export const white = '\x1b[37m';
 export const w = white;
 export const black = '\x1b[30m';
@@ -42,7 +49,17 @@ export const lm = lMagenta;
 export const lCyan = '\x1b[96m';
 export const lc = lCyan;
 
-export const underlineOff = '\x1b[24m';
+export const bg = {
+  black: '\x1b[40m',
+  red: '\x1b[41m',
+  green: '\x1b[42m',
+  yellow: '\x1b[43m',
+  blue: '\x1b[44m',
+  magenta: '\x1b[45m',
+  cyan: '\x1b[46m',
+  white: '\x1b[47m',
+};
+
 export const defaultN = 39;
 export const greenN = 32;
 
@@ -52,3 +69,19 @@ export const blueN = 34;
 export const magentaN = 35;
 export const cyanN = 36;
 export const greyN = 36;
+
+export const emo = {
+  red: '📕',
+  orange: '📙',
+  green: '📗',
+  blue: '📘',
+  grey: '📓',
+  white: '📔',
+  bonus: '🎁',
+  exclam: '⚠',
+  stop: '🛑',
+  love: '❤',
+  smile: '😊',
+  time: '⏱',
+  check: '✔',
+};
