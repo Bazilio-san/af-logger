@@ -1,6 +1,6 @@
 {
   "name": "af-logger",
-  "version": "2.0.26",
+  "version": "2.0.27",
   "description": "A highly specialized function library",
   "main": "./dist/cjs/src/index.js",
   "module": "./dist/esm/index.js",
@@ -11,12 +11,12 @@
     "node": ">=10"
   },
   "scripts": {
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
     "clean": "shx rm -rf dist/*",
     "build": "tsc -b tsconfig.json tsconfig.esm.json tsconfig.types.json",
-    "eslint": "eslint . --ext .ts",
-    "eslint-fix": "eslint . --ext .ts --fix",
-    "release": "np --yolo",
-    "prepack": "npm run clean && npm run build"
+    "cb": "npm run clean && npm run build",
+    "release": "np --yolo"
   },
   "devDependencies": {
     "@types/app-root-path": "^1.2.4",
