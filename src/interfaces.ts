@@ -1,7 +1,7 @@
-import { ILogObject, ISettingsParam, TLogLevelName } from 'tslog/src/interfaces';
 import EventEmitter from 'events';
 import * as winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
+import { ISettingsParam } from "tslog";
 
 export type TMethod<T> = (...args: any[]) => T;
 export type TErr = Error | any;

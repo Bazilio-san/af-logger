@@ -57,12 +57,13 @@ const getSLogger = (options: ILoggerSettings, contName: string): IFileLogger => 
 
   logger.removeEmptyLogs();
 
-  function main(logObject: ILogObject) {
+  function main (logObject: ILogObject) {
     let message: string = '';
     if (Array.isArray(logObject?.argumentsArray)) {
       message = logObject.argumentsArray
-        .filter((v) => v != null && v !== '')
-        .map((v) => (typeof v === 'string' ? v : JSON.stringify(reduceAnyError(v), undefined, 2)).replace(/\x1b\[[\d;]+m/ig, '')).join(' ');
+        .filter((v: any) => v != null && v !== '')
+        // eslint-disable-next-line no-control-regex
+        .map((v: any) => (typeof v === 'string' ? v : JSON.stringify(reduceAnyError(v), undefined, 2)).replace(/\x1b\[[\d;]+m/ig, '')).join(' ');
     }
     if (message) {
       logger[contName](message);
@@ -84,7 +85,7 @@ export class FileLogger {
 
   logDir: string;
 
-  constructor(options: ILoggerSettings) {
+  constructor (options: ILoggerSettings) {
     options.logDir = normalizePath(options.logDir || DEFAULT_LOG_DIR);
     this.logDir = options.logDir;
 

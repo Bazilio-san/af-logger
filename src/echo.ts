@@ -77,7 +77,7 @@ class Echo extends Function {
 
   private logger: LoggerEx;
 
-  constructor(logger: LoggerEx) {
+  constructor (logger: LoggerEx) {
     super();
     this.logger = logger;
     this.prefix = String(this.logger.settings.prefix?.[0] || '');
@@ -90,7 +90,7 @@ class Echo extends Function {
   /**
    * The function of outputting a message to the console with the possibility of coloring and setting a prefix.
    */
-  echo(msg: string, options: TEchoOptions = {}): void {
+  echo (msg: string, options: TEchoOptions = {}): void {
     const color = _c(options);
     if (options.consoleFunction === 'dir') {
       console.dir(msg);
@@ -103,7 +103,7 @@ class Echo extends Function {
     }
   }
 
-  g(msg: string): void {
+  g (msg: string): void {
     this.echo(msg, {
       colorNum: greenN,
       bold: true,
@@ -114,7 +114,7 @@ class Echo extends Function {
    * Output a message to the console and return the cursor the specified number of lines back
    * Allows you to organize "replaced messages" in the Unix console
    */
-  roll(msg: string, lines: number = 1): void {
+  roll (msg: string, lines: number = 1): void {
     if (process.stdin.isTTY) {
       process.stdout.write(`\x1b[${lines}A${msg}\x1b[K\n`);
     } else {
@@ -122,7 +122,7 @@ class Echo extends Function {
     }
   }
 
-  log(levelName: TLogLevelName, ...args: any[]) {
+  log (levelName: TLogLevelName, ...args: any[]) {
     if (levelName !== 'trace' && !this.logger.isLevel(levelName)) {
       return;
     }
@@ -188,31 +188,31 @@ class Echo extends Function {
     }
   }
 
-  error(...args: any[]) {
+  error (...args: any[]) {
     this.log('error', ...args);
   }
 
-  warn(...args: any[]) {
+  warn (...args: any[]) {
     this.log('warn', ...args);
   }
 
-  info(...args: any[]) {
+  info (...args: any[]) {
     this.log('info', ...args);
   }
 
-  trace(...args: any[]) {
+  trace (...args: any[]) {
     this.log('trace', ...args);
   }
 
-  debug(...args: any[]) {
+  debug (...args: any[]) {
     this.log('debug', ...args);
   }
 
-  silly(...args: any[]) {
+  silly (...args: any[]) {
     this.log('silly', ...args);
   }
 
-  sql(...args: any[]) {
+  sql (...args: any[]) {
     const DEBUG = process.env.DEBUG || '';
     if (DEBUG === '*' || /\bsql\b/.test(DEBUG)) {
       if (typeof args[2] !== 'object') {

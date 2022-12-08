@@ -19,18 +19,18 @@ export class LoggerEx extends Logger {
   public _: Logger;
 
   // eslint-disable-next-line no-undef
-  constructor(settings: ISettingsParam, parentSettings?: ISettings) {
+  constructor (settings: ISettingsParam, parentSettings?: ISettings) {
     super(settings, parentSettings);
     // @ts-ignore
     this.logLevels = this._logLevels;
     this._ = new Logger(settings);
   }
 
-  public isLevel(levelName: TLogLevelName): boolean {
+  public isLevel (levelName: TLogLevelName): boolean {
     return this.logLevels.indexOf(levelName) >= this.logLevels.indexOf(this.settings.minLevel);
   }
 
-  mErr(err: TErr, options: ImErrOptions | string) {
+  mErr (err: TErr, options: ImErrOptions | string) {
     if (typeof options === 'string') {
       options = { msg: options };
     }
