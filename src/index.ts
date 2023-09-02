@@ -4,7 +4,7 @@
 
 import { AsyncLocalStorage } from 'async_hooks';
 import { ISettings, Logger } from 'tslog';
-import { ISettingsParam, TLogLevelName } from 'tslog/src/interfaces';
+import { ISettingsParam, ILogLevel, TLogLevelId, TLogLevelName } from 'tslog/src/interfaces';
 import { FileLogger } from './file-logger';
 import { ILoggerSettings, ImErrOptions, TErr } from './interfaces';
 import { isObject, reduceAnyError } from './utils';
@@ -12,6 +12,8 @@ import Echo from './echo';
 import * as color from './color';
 
 const asyncLocalStorage: AsyncLocalStorage<{ requestId: string }> = new AsyncLocalStorage();
+
+export { ILogLevel, TLogLevelId, TLogLevelName };
 
 export class LoggerEx extends Logger {
   public logLevels: TLogLevelName[];
@@ -78,8 +80,8 @@ export const getAFLogger = (loggerSettings: ILoggerSettings) => {
   };
 
   const logger2 = new LoggerEx(settings);
-  logger.logLevels.forEach((levelName) => {
-    logger[`${levelName}_`] = (...args: any[]) => {
+  logger.logLevels.forEach((levelName: TLogLevelName) => {
+    logger[`${levelName}_` as TLogLevelName] = (...args: any[]) => {
       const fn = logger2[levelName];
       return fn.apply(logger2, args);
     };
@@ -102,7 +104,7 @@ export const getAFLogger = (loggerSettings: ILoggerSettings) => {
     const arr = Object.entries(fileLoggerMap || {}).filter(([, t]) => t === fileLoggerType).map(([l]) => l);
     if (arr.length) {
       logger.logLevels.forEach((levelName) => {
-        transportLogger[levelName] = arr.includes(levelName) ? fileLogger[fileLoggerType].main : () => undefined;
+        transportLogger[levelName] = arr.includes(levelName) ? fileLogger[fileLoggerType as 'info' | 'error'].main : () => undefined;
       });
       logger.attachTransport(transportLogger, fileLoggerType === 'error' ? fileLoggerType : minLevel);
     }

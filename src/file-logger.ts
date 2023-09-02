@@ -13,7 +13,7 @@ import { IFileLogger, ILoggerSettings } from './interfaces';
 
 const DEFAULT_LOG_DIR = fsPath.resolve(appRoot.path, '../logs');
 
-const getSLogger = (options: ILoggerSettings, contName: string): IFileLogger => {
+const getSLogger = (options: ILoggerSettings, contName: 'error' | 'info'): IFileLogger => {
   const { filePrefix, logDir } = options;
   const isError = contName === 'error';
   const minLogSize = (isError ? options.minErrorLogSize : 0) || options.minLogSize || 0;

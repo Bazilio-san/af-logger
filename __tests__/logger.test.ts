@@ -1,12 +1,13 @@
 import * as config from 'config';
 import * as fse from 'fs-extra';
 import * as fsPath from 'path';
+import { TLogLevelName } from 'tslog/src/interfaces';
 import { ILoggerSettings } from '../src/interfaces';
 import em from './ee';
 import { getAFLogger } from '../src';
 import { normalizePath } from '../src/utils';
 
-const { level: minLevel, prefix } = config.get('logger');
+const { level: minLevel, prefix } = config.get<{ level: TLogLevelName, prefix: string }>('logger');
 const logDir = './_log';
 fse.removeSync(logDir);
 

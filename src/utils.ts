@@ -109,7 +109,7 @@ const reduceError = (err: TErr) => {
     namesSet.add(k);
   }
   // eslint-disable-next-line no-new-object
-  const o = new Object(null);
+  const o = new Object(null) as { [s: string]: any };
   // eslint-disable-next-line guard-for-in,no-restricted-syntax
   for (const k of namesSet) {
     const v = ['stack', 'message', 'code', 'name'].includes(k) ? err[k] : reducePropertyValue(err[k]);
